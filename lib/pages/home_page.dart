@@ -14,9 +14,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Imagens + StatefulWidget'),
+        centerTitle: true,
+        title: const Text(
+          'Imagens + StatefulWidget',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Center(
             child: GestureDetector(
@@ -29,34 +34,51 @@ class _HomePageState extends State<HomePage> {
                   height: 300,
                   width: 300,
                   child: hasImage
-                      ? Image.asset('assets/imagens/foto.jpeg')
-                      : const Text('Clique aqui para adicionar uma imagem')),
+                      ? Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('assets/imagens/foto.jpeg'),
+                                fit: BoxFit.cover),
+                          ),
+                        )
+                      : Container(
+                          color: Colors.grey,
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Icon(Icons.add_a_photo),
+                              ),
+                              Center(
+                                child: Text(
+                                  'Adicionar Imagem',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              )
+                            ],
+                          ),
+                        )),
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
-            child: const Text('Resetar Imagem'),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.fromLTRB(100, 24, 100, 24),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+              ),
+            ),
+            onPressed: () {
+              setState(() {
+                hasImage = false;
+              });
+            },
+            child: const Text(
+              'Resetar Imagem',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           )
         ],
       ),
     );
   }
 }
-
-
-
-
-
-
-
-// ElevatedButton(
-//         style: ElevatedButton.styleFrom(
-//           backgroundColor: isActive ? Colors.blue : Colors.yellow,
-//         ),
-//         child: const Text('Esse é um botão'),
-//         onPressed: () {
-//           setState(() {
-//             isActive = !isActive;
-//           });
-//         },
-//       ),
